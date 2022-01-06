@@ -1,8 +1,1 @@
-<script context="module">
-    export async function load() {
-        return {
-            status: 302,
-            redirect: "/c/home-page"
-        };
-    }
-</script>
+<h1>Aidan's Photos</h1>
