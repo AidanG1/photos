@@ -1,7 +1,7 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ params, fetch }) {
-		const image_width = 400;
+		const image_width = 800;
 		const url = `/api/${params.category}/${image_width}`;
 		const res = await fetch(url);
 		const photos = await res.json();
@@ -9,6 +9,7 @@
 			return {
 				props: {
 					image_width: image_width,
+					maxColumnWidth: 400,
 					images: photos,
 					photo_srcs: photos.map((element) => element.src)
 				}
@@ -24,34 +25,30 @@
 
 <script>
 	import Gallery from 'svelte-image-gallery';
-	import { Carousel, CarouselControl, CarouselIndicators, CarouselItem } from 'sveltestrap';
-	let activeIndex = 0;
-	import { MasonryGrid } from '@egjs/svelte-grid';
-	export let image_width, photo_srcs;
+	import { Button, Image, Modal, ModalBody, ModalFooter, ModalHeader } from 'sveltestrap';
+
+	let modal_open = false;
+	const modalToggle = () => (modal_open = !modal_open);
+	let modal_src = '';
+	function HandleClick(e) {
+        console.log(e)
+		modal_open = !modal_open;
+		modal_src = e.detail.src.replace(`w_${image_width}`, `w_${image_width * 2}`);
+		console.log(modal_src);
+	}
+	export let image_width, maxColumnWidth, photo_srcs;
 </script>
 
-<Gallery gap="10" maxColumnWidth={image_width}>
-	{#each photo_srcs as src}
-		<img {src} alt="" />
+<Modal isOpen={modal_open} {modalToggle}>
+	<ModalBody>
+		<Image {modal_src} alt="Zoomed Image" />
+	</ModalBody>
+	<ModalFooter>
+		<Button color="secondary" on:click={modalToggle}>Close</Button>
+	</ModalFooter>
+</Modal>
+<Gallery gap="10" {maxColumnWidth} on:click={HandleClick}>
+	{#each photo_srcs as src, index}
+		<Image {src} alt="Image {index}" />
 	{/each}
 </Gallery>
-
-<!-- <MasonryGrid class="container" {gap}>
-	{#each photo_srcs as src}
-		<img {src} alt="" />
-	{/each}
-</MasonryGrid> -->
-<!-- <Carousel {photo_srcs} bind:activeIndex>
-	<CarouselIndicators bind:activeIndex {photo_srcs} />
-
-	<div class="carousel-inner">
-		{#each photo_srcs as photo, index}
-			<CarouselItem bind:activeIndex itemIndex={index}>
-				<img src={photo} class="d-block w-100" alt={`Photo ${index + 1}`} />
-			</CarouselItem>
-		{/each}
-	</div>
-
-	<CarouselControl direction="prev" bind:activeIndex {photo_srcs} />
-	<CarouselControl direction="next" bind:activeIndex {photo_srcs} />
-</Carousel> -->
