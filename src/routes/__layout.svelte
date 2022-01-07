@@ -23,6 +23,12 @@
 	export let key;
 	let isOpen = false;
 	const toggle = () => (isOpen = !isOpen);
+	function key_change(key) {
+		isOpen = false;
+	}
+	$: {
+		key_change(key);
+	}
 </script>
 
 <Navbar color="dark" dark>

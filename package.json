@@ -12,16 +12,13 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/adapter-cloudflare": "^1.0.0-next.6",
-    "@sveltejs/adapter-static": "^1.0.0-next.24",
     "@sveltejs/kit": "next",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
-    "svelte": "^3.44.3",
-    "svelte-image-gallery": "^1.3.0"
+    "svelte": "^3.44.3"
   },
   "type": "module",
   "dependencies": {
-    "@sveltejs/adapter-cloudflare-workers": "^1.0.0-next.28",
     "sveltestrap": "^5.7.0"
   }
 }
