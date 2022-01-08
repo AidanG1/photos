@@ -65,6 +65,7 @@
 </Container>
 
 <footer class="bg-dark p-2">
+	<hr class="bg-secondary border-secondary">
 	<p class="text-light text-center">
 		Created by Aidan Gerber<br />
 		2022-{new Date().getFullYear()}
@@ -74,7 +75,7 @@
 			width="30"
 		/>
 		Aidan's Photos<br />
-		Photos taken between 2018 and {new Date().getFullYear()}
+		Photos taken between 2018 and {new Date().getFullYear()}<br>
 		<a
 			aria-label="Open the Main Aidan site"
 			href="https://www.tradethisandthat.com"
@@ -83,6 +84,17 @@
 			>Aidan's main website <img
 				src="https://res.cloudinary.com/dnmd9zoai/image/upload/c_scale,w_100/v1600885116/android-chrome-512x512_fopcph.png"
 				alt="Aidan's Photos Logo"
+				width="30"
+			/></a
+		><br>
+		<a
+			aria-label="View the source code"
+			href="https://github.com/AidanG1/photos"
+			target="_blank"
+			rel="nofollow noopener noreferrer"
+			>Source code for this website <img
+				src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-download.com%2Fwp-content%2Fuploads%2F2016%2F09%2FGitHub_logo.png&f=1&nofb=1"
+				alt="Github Logo"
 				width="30"
 			/></a
 		>
