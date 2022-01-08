@@ -61,15 +61,15 @@
 <h1>{pathname}</h1>
 <Modal isOpen={modal_open} {modalToggle} fullscreen={true}>
 	<ModalBody class="bg-dark text-center">
-		<Carousel {modal_srcs} bind:activeIndex class="carousel-fade" data-interval="false">
+		<Carousel {modal_srcs} bind:activeIndex class="carousel-fade align-middle" data-interval="false">
 			<div class="carousel-inner">
 				{#each modal_srcs as item, index}
-					<CarouselItem bind:activeIndex itemIndex={index} class="modal-image">
+					<CarouselItem bind:activeIndex itemIndex={index}>
 						<img
 							src={item}
 							alt={`${item} ${index + 1}`}
-							class="modal-image text-center align-middle"
-							style="max-height:98%;max-width:98%;width:98vw"
+							class="text-center"
+							style="max-height:85vh;max-width:98vw"
                             loading="lazy"
 						/>
 					</CarouselItem>
