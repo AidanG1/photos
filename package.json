@@ -1,13 +1,16 @@
 {
   "name": "photos",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+    "generate:images": "node ./generate-responsive-image-data.js",
+    "generate:manifest": "node ./generate-manifest.js",
+    "generate:sitemap": "node ./generate-sitemap.js"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
@@ -19,6 +22,7 @@
   },
   "type": "module",
   "dependencies": {
+    "sharp": "^0.29.3",
     "sveltestrap": "^5.7.0"
   }
 }

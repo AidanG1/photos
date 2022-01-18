@@ -69,7 +69,6 @@
 	#gallery .column *:nth-child(1) {
 		margin-top: 0;
 	}
-
 	.img-hover {
 		opacity: 0.9;
 		transition: all 0.2s;

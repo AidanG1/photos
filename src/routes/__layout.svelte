@@ -7,6 +7,8 @@
 </script>
 
 <script>
+	import website from '$lib/config/website';
+	const { themeColor } = website;
 	import {
 		Collapse,
 		Container,
@@ -31,6 +33,11 @@
 	}
 </script>
 
+<svelte:head>
+	<meta name="theme-color" content={themeColor} />
+	<link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+</svelte:head>
+
 <Navbar color="dark" dark>
 	<NavbarBrand href="https://www.tradethisandthat.com" class="me-auto"
 		><em>Aidan's Home</em>
@@ -47,7 +54,7 @@
 			width="50"
 		/></NavbarBrand
 	>
-	<NavbarToggler on:click={toggle} class="me-2" />
+	<NavbarToggler on:click={toggle} class="me-2" aria-label="Navbar toggler" />
 	<Collapse {isOpen} navbar>
 		<Nav navbar>
 			{#each [...categories].sort() as category}
@@ -65,7 +72,7 @@
 </Container>
 
 <footer class="bg-dark p-2">
-	<hr class="bg-secondary border-secondary">
+	<hr class="bg-secondary border-secondary" />
 	<p class="text-light text-center">
 		Created by Aidan Gerber<br />
 		2022-{new Date().getFullYear()}
@@ -75,7 +82,7 @@
 			width="30"
 		/>
 		Aidan's Photos<br />
-		Photos taken between 2018 and {new Date().getFullYear()}<br>
+		Photos taken between 2018 and {new Date().getFullYear()}<br />
 		<a
 			aria-label="Open the Main Aidan site"
 			href="https://www.tradethisandthat.com"
@@ -86,7 +93,7 @@
 				alt="Aidan's Photos Logo"
 				width="30"
 			/></a
-		><br>
+		><br />
 		<a
 			aria-label="View the source code"
 			href="https://github.com/AidanG1/photos"
@@ -105,5 +112,13 @@
 	footer {
 		margin-top: 0;
 		box-shadow: 0 100vh 0 100vh black;
+	}
+
+	:global(a) {
+		color: rgb(125, 125, 255)
+	}
+
+	:global(a:hover) {
+		color: rgb(78, 78, 255)
 	}
 </style>
