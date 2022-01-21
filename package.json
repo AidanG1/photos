@@ -23,6 +23,8 @@
   "type": "module",
   "dependencies": {
     "sharp": "^0.29.3",
-    "sveltestrap": "^5.7.0"
+    "svelte-cubed": "^0.2.1",
+    "sveltestrap": "^5.7.0",
+    "three": "^0.136.0"
   }
 }
