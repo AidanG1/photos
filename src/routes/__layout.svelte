@@ -47,7 +47,7 @@
 			width="50"
 		/></NavbarBrand
 	>
-	<NavbarBrand href="/c/home-page" class="me-auto"
+	<NavbarBrand href="/c/favorites" class="me-auto"
 		>Aidan's Photos <img
 			src="https://res.cloudinary.com/dnmd9zoai/image/upload/c_scale,w_100/v1641490430/aidansphotoslogo512_zksqkj.png"
 			alt="Aidan's Photos Logo"
@@ -57,6 +57,9 @@
 	<NavbarToggler on:click={toggle} class="me-2" aria-label="Navbar toggler" />
 	<Collapse {isOpen} navbar>
 		<Nav navbar>
+			<NavItem>
+				<NavLink href="/3dlogo">3D Logo</NavLink>
+			</NavItem>
 			{#each [...categories].sort() as category}
 				<NavItem>
 					<NavLink href="/c/{category}">{categoryMenuBar(category)}</NavLink>

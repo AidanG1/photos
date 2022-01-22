@@ -8,5 +8,4 @@ for (let photo of photos) {
         categories.add(category)
     }
 }
-categories.delete('home-page')
 export default categories
