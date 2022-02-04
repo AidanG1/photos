@@ -60,6 +60,9 @@
 			<NavItem>
 				<NavLink href="/3dlogo">3D Logo</NavLink>
 			</NavItem>
+			<NavItem>
+				<NavLink href="/3dgallery">3D Gallery</NavLink>
+			</NavItem>
 			{#each [...categories].sort() as category}
 				<NavItem>
 					<NavLink href="/c/{category}">{categoryMenuBar(category)}</NavLink>
