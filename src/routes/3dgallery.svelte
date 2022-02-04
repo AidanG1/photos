@@ -25,9 +25,9 @@
 	}
 	function index_z(index) {
 		if (index % 2 === 0) {
-			return -10;
+			return -9.9;
 		} else {
-			return 10;
+			return 9.9;
 		}
 	}
 	get_textures('favorites');
@@ -39,27 +39,27 @@
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
 			<SC.Primitive
-				object={new THREE.GridHelper(50, 50, 0x444444, 0x555555)}
+				object={new THREE.GridHelper(20, 20, 0x444444, 0x555555)}
 				position={[0, 0.001, 0]}
 			/>
 		</SC.Group>
 		<SC.Group position={[0, 4.5, -10]}>
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(50, 10)}
+				geometry={new THREE.PlaneGeometry(200, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke' })}
 			/>
 		</SC.Group>
 		<SC.Group position={[0, 4.5, 10]}>
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(50, 10)}
+				geometry={new THREE.PlaneGeometry(200, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke' })}
 			/>
 		</SC.Group>
 		{#each image_textures as texture, index}
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry()}
+				geometry={new THREE.PlaneGeometry(7,7)}
 				material={texture}
-				position={[Math.round(index / 2) * 10, 4, index_z(index)]}
+				position={[Math.round(index / 2) * 10, 4.5, index_z(index)]}
 			/>
 		{/each}
 		<!-- <SC.Mesh geometry={new THREE.BoxGeometry()} /> -->
