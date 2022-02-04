@@ -35,7 +35,7 @@
 			}
 		);
 
-		new THREE.TextureLoader().load('/panorama.jpg', (loaded) => {
+		new THREE.TextureLoader().load('/snake.jpg', (loaded) => {
 			background = loaded;
 			background.mapping = THREE.EquirectangularReflectionMapping;
 			background.encoding = THREE.sRGBEncoding;
@@ -53,7 +53,7 @@
 <h1>Three Dimensional Logo in Front of a Panorama of Sand Dunes (Beta)</h1>
 <div class="outer-container">
 	<div class="three-container">
-		<SC.Canvas {background} antialias>
+		<SC.Canvas {background} antialias height=500 width=800>
 			{#each texts as text, index}
 				<SC.Mesh
 					geometry={text}
@@ -82,8 +82,6 @@
 		overflow-x: hidden;
 	}
 	.outer-container {
-		width: 110%;
-		height: 100%;
 	}
 	.three-container {
 		position: absolute;
