@@ -1,46 +1,40 @@
-<script context="module">
-	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ params, fetch }) {
-		const url = `/api/${params.category}/720`;
-		const res = await fetch(url);
-		const photos = await res.json();
-		const photo_srcs = photos.map((element) => element.src);
-		if (res.ok) {
-			return {
-				props: {
-					photo_srcs: photo_srcs
-				}
-			};
-		}
-
-		return {
-			status: res.status,
-			error: new Error(`Failed to load ${url}`)
-		};
-	}
-</script>
-
 <script>
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
-	export let photo_srcs = photo_srcs;
-	let x_position = 1;
 	let image_textures = [];
-	onMount(() => {
-		for (let src of photo_srcs) {
-			new THREE.TextureLoader().load(src, (icon) => {
-				image_textures.push(
-					new THREE.MeshBasicMaterial({
-						map: icon,
-						color: 'purple'
-					})
-				);
+	function get_textures(category) {
+		const url = `/api/${category}/720`;
+		fetch(url).then((res) => {
+			res.json().then((photos) => {
+				// image_textures = [];
+				let photo_srcs = photos.map((element) => element.src);
+				for (let src of photo_srcs) {
+					new THREE.TextureLoader().load(src, (img_src) => {
+						image_textures = image_textures.concat(
+							new THREE.MeshBasicMaterial({
+								map: img_src
+							})
+						);
+						console.log(image_textures);
+					});
+				}
+				return 'success';
 			});
+		});
+	}
+	function index_z(index) {
+		if (index % 2 === 0) {
+			return -10;
+		} else {
+			return 10;
 		}
-	});
+	}
+	get_textures('favorites');
+	let x_position = 1;
 </script>
 
+<h1>Photo Gallery</h1>
 <div class="demo">
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
@@ -61,11 +55,13 @@
 				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke' })}
 			/>
 		</SC.Group>
-		<SC.Group position={[0, 4.5, 0]}>
-			{#each image_textures as texture}
-				<SC.Mesh geometry={new THREE.BoxGeometry()} material={texture} />
-			{/each}
-		</SC.Group>
+		{#each image_textures as texture, index}
+			<SC.Mesh
+				geometry={new THREE.PlaneGeometry()}
+				material={texture}
+				position={[Math.round(index / 2) * 10, 4, index_z(index)]}
+			/>
+		{/each}
 		<!-- <SC.Mesh geometry={new THREE.BoxGeometry()} /> -->
 		<SC.PerspectiveCamera position={[x_position, 4, 0]} />
 		<SC.AmbientLight intensity={0.6} />
@@ -82,8 +78,8 @@
 <style>
 	.demo {
 		position: relative;
-		width: 100%;
-		max-width: 80%;
+		width: 105%;
+		max-width: 90%;
 		height: var(--height, 500px);
 		border-radius: 0.5rem;
 		overflow: hidden;
