@@ -1,6 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
-	import { Button, ButtonGroup } from 'sveltestrap';
+	import { Button, ButtonGroup, Input, Label, FormGroup } from 'sveltestrap';
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
 	import categories from '$lib/categories';
@@ -120,10 +120,10 @@
 	}
 
 	function handleKeydown(event) {
-		if (['ArrowUp','w','W'].includes(event.key)) {
-			moveForward()
-		} else if (['ArrowDown','s','S'].includes(event.key)) {
-			moveBack()
+		if (['ArrowUp', 'w', 'W'].includes(event.key)) {
+			moveForward();
+		} else if (['ArrowDown', 's', 'S'].includes(event.key)) {
+			moveBack();
 		}
 	}
 </script>
@@ -162,6 +162,19 @@
 		Forward 🠖
 	</Button>
 </ButtonGroup>
+<FormGroup>
+	<Label for="xRange"><h5>Position Slider (can also use W↑/S↓)</h5></Label>
+	<Input
+		type="range"
+		name="xRange"
+		id="xRange"
+		min={1}
+		max={surrounding_length}
+		step={movement_amount/2}
+		bind:value={x_position}
+		placeholder="X position placeholder"
+	/>
+</FormGroup>
 <main class="demo">
 	<span id="fps">FPS: {fps}</span>
 	<SC.Canvas antialias background={new THREE.Color('lightskyblue')}>
@@ -232,11 +245,11 @@
 		<SC.PerspectiveCamera position={[x_position, 4, 0]} />
 		<SC.AmbientLight intensity={0.6} />
 		<SC.OrbitControls
-			target={[x_position, 5, 0]}
+			target={[x_position-0.1, 4, 0]}
 			enablePan={false}
 			enableZoom={false}
-			maxPolarAngle={Math.PI * 0.5}
 		/>
+			<!-- maxPolarAngle={Math.PI * 0.5} -->
 	</SC.Canvas>
 </main>
 
@@ -246,14 +259,14 @@
 		top: 3px;
 		left: 3px;
 		color: rgb(102, 255, 0);
-		z-index: 50;
+		z-index: 10;
 	}
 
 	.demo {
 		position: relative;
+		height: 600px;
 		width: 105%;
 		max-width: 90%;
-		height: var(--height, 600px);
 		border-radius: 0.5rem;
 		overflow: hidden;
 		margin: 0 0 1em;
