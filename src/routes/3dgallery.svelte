@@ -40,14 +40,43 @@
 	}
 	get_textures('favorites');
 	let x_position = 1;
+	let floor;
+	let roof;
+
+	onMount(() => {
+		new THREE.TextureLoader().load(
+			'https://res.cloudinary.com/dnmd9zoai/image/upload/c_scale,w_1440/v1641229051/Aidan%27s%20Photos/IMG_1645_zvrlji.webp',
+			(loaded) => {
+				roof = new THREE.MeshBasicMaterial({
+					map: loaded,
+					side: THREE.DoubleSide
+				});
+				roof.wrapS = THREE.RepeatWrapping;
+				roof.wrapT = THREE.RepeatWrapping;
+			}
+		);
+		new THREE.TextureLoader().load(
+			'/repeatingtile.jpg',
+			(loaded) => {
+				floor = new THREE.MeshBasicMaterial({
+					map: loaded,
+					side: THREE.DoubleSide
+				});
+				floor.wrapS = THREE.RepeatWrapping;
+				floor.wrapT = THREE.RepeatWrapping;
+			}
+		);
+        
+	});
 </script>
 
 <h1>
-	Photo Gallery <ButtonGroup>
+	3D Photo Gallery
+	<ButtonGroup>
 		<Button
 			color="warning"
 			on:click={() => {
-				x_position -= 3;
+				x_position >= 4 ? (x_position -= 3) : '';
 			}}
 		>
 			🠔 Back
@@ -57,11 +86,12 @@
 			on:click={() => {
 				x_position += 3;
 			}}
-			>Forward 🠖
+		>
+			Forward 🠖
 		</Button>
 	</ButtonGroup>
 </h1>
-<div class="demo">
+<main class="demo">
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
 			<!-- <SC.Primitive
@@ -91,30 +121,55 @@
 			/>
 		</SC.Group>
 		<SC.Group position={[90, 0, 0]} rotation={[1.57, 0, 0]}>
-			<!-- floor wall -->
-			<SC.Mesh
+			<!-- floor -->
+			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 20)}
 				material={new THREE.MeshStandardMaterial({ color: 'white', side: THREE.DoubleSide })}
-			/>
+			/> -->
+			<SC.Mesh geometry={new THREE.PlaneGeometry(200, 20)} material={floor} />
+		</SC.Group>
+		<SC.Group position={[90, 9, 0]} rotation={[1.57, 0, 0]}>
+			<!-- roof -->
+			<!-- <SC.Mesh
+				geometry={new THREE.PlaneGeometry(200, 20)}
+				material={new THREE.MeshStandardMaterial({ color: 'black', side: THREE.DoubleSide })}
+			/> -->
+			<SC.Mesh geometry={new THREE.PlaneGeometry(200, 20)} material={roof} />
 		</SC.Group>
 		{#each image_textures as texture, index}
-			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(
-					(8 * texture.map.image.naturalWidth) / 720,
-					(8 * texture.map.image.naturalHeight) / 720
-				)}
-				material={texture}
-				position={[Math.trunc(index / 2) * 10, 4.5, index_z(index)]}
-				rotation={[0, flip_y(index), 0]}
-			/>
+			{#if texture.map.image.naturalHeight > 720}
+				<SC.Mesh
+					geometry={new THREE.PlaneGeometry(
+						(8 * texture.map.image.naturalWidth) / texture.map.image.naturalHeight,
+						8
+					)}
+					material={texture}
+					position={[Math.trunc(index / 2) * 10, 4.5, index_z(index)]}
+					rotation={[0, flip_y(index), 0]}
+				/>
+			{:else}
+				<SC.Mesh
+					geometry={new THREE.PlaneGeometry(
+						(8 * texture.map.image.naturalWidth) / 720,
+						(8 * texture.map.image.naturalHeight) / 720
+					)}
+					material={texture}
+					position={[Math.trunc(index / 2) * 10, 4.5, index_z(index)]}
+					rotation={[0, flip_y(index), 0]}
+				/>
+			{/if}
 		{/each}
 		<!-- <SC.Mesh geometry={new THREE.BoxGeometry()} /> -->
 		<SC.PerspectiveCamera position={[x_position, 4, 0]} />
 		<SC.AmbientLight intensity={0.6} />
-		<SC.OrbitControls target={[x_position, 5, 0]} enablePan={false} maxPolarAngle={Math.PI * 0.5} />
-		​</SC.Canvas
-	>
-</div>
+		<SC.OrbitControls
+			target={[x_position, 5, 0]}
+			enablePan={false}
+			enableZoom={false}
+			maxPolarAngle={Math.PI * 0.5}
+		/>
+	</SC.Canvas>
+</main>
 
 <style>
 	.demo {
