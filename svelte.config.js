@@ -5,9 +5,6 @@ import cloudflare from '@sveltejs/adapter-cloudflare';
 const config = {
 	kit: {
 		adapter: cloudflare({}),
-
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
 	}
 };
 
