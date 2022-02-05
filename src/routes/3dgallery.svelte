@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { Button, ButtonGroup } from 'sveltestrap';
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
 	let image_textures = [];
@@ -34,7 +35,10 @@
 	let x_position = 1;
 </script>
 
-<h1>Photo Gallery</h1>
+<h1>Photo Gallery <ButtonGroup>
+    <Button on:click={() => {x_position -= 2.5}}>Back</Button>
+    <Button on:click={() => {x_position += 2.5}}>Forward</Button>
+  </ButtonGroup></h1>
 <div class="demo">
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
@@ -57,7 +61,7 @@
 		</SC.Group>
 		{#each image_textures as texture, index}
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(7,7)}
+				geometry={new THREE.PlaneGeometry(7, 7)}
 				material={texture}
 				position={[Math.round(index / 2) * 10, 4.5, index_z(index)]}
 			/>
@@ -68,7 +72,6 @@
 		<SC.OrbitControls
 			target={[x_position, 5, 0]}
 			enablePan={false}
-			enableZoom={true}
 			maxPolarAngle={Math.PI * 0.48}
 		/>
 		​</SC.Canvas
