@@ -165,7 +165,7 @@
 <main class="demo">
 	<span id="fps">FPS: {fps}</span>
 	<SC.Canvas antialias background={new THREE.Color('lightskyblue')}>
-		<SC.Group position={[-10, 4.5, ]}>
+		<SC.Group position={[start_position, 4.5, -10]}>
 			<!-- left wall -->
 			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 10)} material={walls} />
 			<!-- <SC.Mesh
@@ -173,7 +173,7 @@
 				material={new THREE.MeshStandardMaterial({ color: 'royalblue', side: THREE.DoubleSide })}
 			/> -->
 		</SC.Group>
-		<SC.Group position={[10, 4.5, start_position]}>
+		<SC.Group position={[start_position, 4.5, 10]}>
 			<!-- right wall -->
 			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 10)} material={walls} />
 			<!-- <SC.Mesh
@@ -189,7 +189,7 @@
 				material={new THREE.MeshStandardMaterial({ color: 'purple', side: THREE.DoubleSide })}
 			/> -->
 		</SC.Group>
-		<SC.Group position={[0, 0, start_position]} rotation={[1.57, 0, 0]}>
+		<SC.Group position={[start_position, 0, 0]} rotation={[1.57, 0, 0]}>
 			<!-- floor -->
 			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 20)}
@@ -197,7 +197,7 @@
 			/> -->
 			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 20)} material={floor} />
 		</SC.Group>
-		<SC.Group position={[0, 9, start_position]} rotation={[1.57, 0, 0]}>
+		<SC.Group position={[start_position, 9, 0]} rotation={[1.57, 0, 0]}>
 			<!-- roof -->
 			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 20)}
