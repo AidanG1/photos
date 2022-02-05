@@ -6,12 +6,13 @@
 	import categories from '$lib/categories';
 	import { categoryMenuBar } from '$lib/utils';
 	let image_textures = [];
-    let image_width = '720'
+	let image_width = '720';
 	function get_textures(category) {
 		const url = `/api/${category}/${image_width}`;
 		fetch(url).then((res) => {
 			res.json().then((photos) => {
 				for (let photo of photos) {
+					photo.src = photo.src.replace('upload/',`upload/bo_${image_width/20}px_solid_white/`)
 					new THREE.TextureLoader().load(photo.src, (img_src) => {
 						image_textures = image_textures.concat(
 							new THREE.MeshBasicMaterial({
@@ -48,10 +49,12 @@
 		surrounding_length = 200 + x_position;
 		start_position = surrounding_length / 2 - 10;
 	}
-	let floor;
-	let roof;
 	let category_choice = 'favorites';
 	let movement_amount = 5;
+	let floor;
+	let roof;
+	let backwall;
+	let walls;
 	onMount(() => {
 		new THREE.TextureLoader().load(
 			'https://res.cloudinary.com/dnmd9zoai/image/upload/c_scale,w_1440/v1641229051/Aidan%27s%20Photos/IMG_1645_zvrlji.webp',
@@ -72,6 +75,40 @@
 			floor.wrapS = THREE.RepeatWrapping;
 			floor.wrapT = THREE.RepeatWrapping;
 		});
+		new THREE.TextureLoader().load('/backwall.jpg', (loaded) => {
+			backwall = new THREE.MeshBasicMaterial({
+				map: loaded,
+				side: THREE.DoubleSide
+			});
+			backwall.wrapS = THREE.RepeatWrapping;
+			backwall.wrapT = THREE.RepeatWrapping;
+		});
+		new THREE.TextureLoader().load('/left-right-walls.jpg', (loaded) => {
+			walls = new THREE.MeshBasicMaterial({
+				map: loaded,
+				side: THREE.DoubleSide
+			});
+			walls.wrapS = THREE.RepeatWrapping;
+			walls.wrapT = THREE.RepeatWrapping;
+		});
+	});
+
+	// enable FPS
+	let clock = new THREE.Clock();
+	let elapsedTime = 0;
+	let frameCount = 0;
+	let fps = 0;
+	function updateFps() {
+		elapsedTime += clock.getDelta();
+		frameCount++;
+		if (elapsedTime >= 1) {
+			fps = frameCount;
+			frameCount = 0;
+			elapsedTime = 0;
+		}
+	}
+	SC.onFrame(() => {
+		updateFps();
 	});
 </script>
 
@@ -97,7 +134,7 @@
 			x_position = 5 * image_textures.length;
 		}}
 	>
-		More {categoryMenuBar(category_choice.toString())}  photos
+		More {categoryMenuBar(category_choice.toString())} photos
 	</Button>
 	<Button
 		color="success"
@@ -109,7 +146,8 @@
 	</Button>
 </ButtonGroup>
 <main class="demo">
-	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
+	<span id="fps">FPS: {fps}</span>
+	<SC.Canvas antialias background={new THREE.Color('lightskyblue')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
 			<!-- <SC.Primitive
 				object={new THREE.GridHelper(20, 20, 0x444444, 0x555555)}
@@ -118,24 +156,27 @@
 		</SC.Group>
 		<SC.Group position={[start_position, 4.5, -10]}>
 			<!-- left wall -->
-			<SC.Mesh
+			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 10)} material={walls} />
+			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(surrounding_length, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'royalblue', side: THREE.DoubleSide })}
-			/>
+			/> -->
 		</SC.Group>
 		<SC.Group position={[start_position, 4.5, 10]}>
 			<!-- right wall -->
-			<SC.Mesh
+			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 10)} material={walls} />
+			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(surrounding_length, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'maroon', side: THREE.DoubleSide })}
-			/>
+			/> -->
 		</SC.Group>
 		<SC.Group position={[-10, 5, 0]} rotation={[0, 1.57, 0]}>
 			<!-- back wall -->
-			<SC.Mesh
+			<SC.Mesh geometry={new THREE.PlaneGeometry(20, 10)} material={backwall} />
+			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(20, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'purple', side: THREE.DoubleSide })}
-			/>
+			/> -->
 		</SC.Group>
 		<SC.Group position={[start_position, 0, 0]} rotation={[1.57, 0, 0]}>
 			<!-- floor -->
@@ -189,6 +230,14 @@
 </main>
 
 <style>
+	#fps {
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		color: rgb(102, 255, 0);
+		z-index: 50;
+	}
+
 	.demo {
 		position: relative;
 		width: 105%;
