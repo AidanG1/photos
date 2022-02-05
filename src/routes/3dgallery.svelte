@@ -31,20 +31,29 @@
 			return 9.9;
 		}
 	}
+	function flip_y(index) {
+		if (index % 2 !== 0) {
+			return Math.PI;
+		} else {
+			return 0;
+		}
+	}
 	get_textures('favorites');
 	let x_position = 1;
 </script>
 
 <h1>
 	Photo Gallery <ButtonGroup>
-		<Button color='warning'
+		<Button
+			color="warning"
 			on:click={() => {
 				x_position -= 3;
 			}}
-			> 🠔 Back
+		>
+			🠔 Back
 		</Button>
 		<Button
-        color='success'
+			color="success"
 			on:click={() => {
 				x_position += 3;
 			}}
@@ -61,16 +70,31 @@
 			/> -->
 		</SC.Group>
 		<SC.Group position={[90, 4.5, -10]}>
+			<!-- left wall -->
 			<SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 10)}
-				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke', side: THREE.DoubleSide })}
+				material={new THREE.MeshStandardMaterial({ color: 'royalblue', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
 		<SC.Group position={[90, 4.5, 10]}>
+			<!-- right wall -->
 			<SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 10)}
-				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke',
-                side: THREE.DoubleSide })}
+				material={new THREE.MeshStandardMaterial({ color: 'maroon', side: THREE.DoubleSide })}
+			/>
+		</SC.Group>
+		<SC.Group position={[-10, 5, 0]} rotation={[0, 1.57, 0]}>
+			<!-- back wall -->
+			<SC.Mesh
+				geometry={new THREE.PlaneGeometry(20, 10)}
+				material={new THREE.MeshStandardMaterial({ color: 'purple', side: THREE.DoubleSide })}
+			/>
+		</SC.Group>
+		<SC.Group position={[90, 0, 0]} rotation={[1.57, 0, 0]}>
+			<!-- floor wall -->
+			<SC.Mesh
+				geometry={new THREE.PlaneGeometry(200, 20)}
+				material={new THREE.MeshStandardMaterial({ color: 'white', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
 		{#each image_textures as texture, index}
@@ -80,7 +104,8 @@
 					(8 * texture.map.image.naturalHeight) / 720
 				)}
 				material={texture}
-				position={[Math.round(index / 2) * 10, 4.5, index_z(index)]}
+				position={[Math.trunc(index / 2) * 10, 4.5, index_z(index)]}
+				rotation={[0, flip_y(index), 0]}
 			/>
 		{/each}
 		<!-- <SC.Mesh geometry={new THREE.BoxGeometry()} /> -->
