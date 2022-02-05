@@ -3,9 +3,12 @@
 	import { Button, ButtonGroup } from 'sveltestrap';
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
+	import categories from '$lib/categories';
+	import { categoryMenuBar } from '$lib/utils';
 	let image_textures = [];
+    let image_width = '720'
 	function get_textures(category) {
-		const url = `/api/${category}/720`;
+		const url = `/api/${category}/${image_width}`;
 		fetch(url).then((res) => {
 			res.json().then((photos) => {
 				for (let photo of photos) {
@@ -47,6 +50,7 @@
 	}
 	let floor;
 	let roof;
+	let category_choice = 'favorites';
 	let movement_amount = 5;
 	onMount(() => {
 		new THREE.TextureLoader().load(
@@ -71,35 +75,39 @@
 	});
 </script>
 
-<h1>
-	3D Photo Gallery
-	<ButtonGroup>
-		<Button
-			color="warning"
-			on:click={() => {
-				x_position >= movement_amount + 1 ? (x_position -= movement_amount) : '';
-			}}
-		>
-			🠔 Back
-		</Button>
-		<Button
-			color="primary"
-			on:click={() => {
-				get_textures('favorites');
-			}}
-		>
-			More photos
-		</Button>
-		<Button
-			color="success"
-			on:click={() => {
-				x_position += movement_amount;
-			}}
-		>
-			Forward 🠖
-		</Button>
-	</ButtonGroup>
-</h1>
+<h1>3D Photo Gallery</h1>
+<ButtonGroup>
+	<Button
+		color="warning"
+		on:click={() => {
+			x_position >= movement_amount + 1 ? (x_position -= movement_amount) : '';
+		}}
+	>
+		🠔 Back
+	</Button>
+	<select bind:value={category_choice}>
+		{#each [...categories].sort() as category}
+			<option background="bg-dark" value={category}>{categoryMenuBar(category)}</option>
+		{/each}
+	</select>
+	<Button
+		color="primary"
+		on:click={() => {
+			get_textures(category_choice);
+			x_position = 5 * image_textures.length;
+		}}
+	>
+		More {categoryMenuBar(category_choice.toString())}  photos
+	</Button>
+	<Button
+		color="success"
+		on:click={() => {
+			x_position += movement_amount;
+		}}
+	>
+		Forward 🠖
+	</Button>
+</ButtonGroup>
 <main class="demo">
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
@@ -146,7 +154,7 @@
 			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 20)} material={roof} />
 		</SC.Group>
 		{#each image_textures as texture, index}
-			{#if texture.map.image.naturalHeight > 720}
+			{#if texture.map.image.naturalHeight > image_width}
 				<SC.Mesh
 					geometry={new THREE.PlaneGeometry(
 						(8 * texture.map.image.naturalWidth) / texture.map.image.naturalHeight,
@@ -159,8 +167,8 @@
 			{:else}
 				<SC.Mesh
 					geometry={new THREE.PlaneGeometry(
-						(8 * texture.map.image.naturalWidth) / 720,
-						(8 * texture.map.image.naturalHeight) / 720
+						(8 * texture.map.image.naturalWidth) / image_width,
+						(8 * texture.map.image.naturalHeight) / image_width
 					)}
 					material={texture}
 					position={[Math.trunc(index / 2) * 10, 4.5, index_z(index)]}
