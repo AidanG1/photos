@@ -8,7 +8,6 @@
 		const url = `/api/${category}/720`;
 		fetch(url).then((res) => {
 			res.json().then((photos) => {
-				// image_textures = [];
 				for (let photo of photos) {
 					new THREE.TextureLoader().load(photo.src, (img_src) => {
 						image_textures = image_textures.concat(
@@ -40,9 +39,15 @@
 	}
 	get_textures('favorites');
 	let x_position = 1;
+	let surrounding_length = 200;
+	let start_position = 90;
+	$: {
+		surrounding_length = 200 + x_position;
+		start_position = surrounding_length / 2 - 10;
+	}
 	let floor;
 	let roof;
-
+	let movement_amount = 5;
 	onMount(() => {
 		new THREE.TextureLoader().load(
 			'https://res.cloudinary.com/dnmd9zoai/image/upload/c_scale,w_1440/v1641229051/Aidan%27s%20Photos/IMG_1645_zvrlji.webp',
@@ -55,18 +60,14 @@
 				roof.wrapT = THREE.RepeatWrapping;
 			}
 		);
-		new THREE.TextureLoader().load(
-			'/repeatingtile.jpg',
-			(loaded) => {
-				floor = new THREE.MeshBasicMaterial({
-					map: loaded,
-					side: THREE.DoubleSide
-				});
-				floor.wrapS = THREE.RepeatWrapping;
-				floor.wrapT = THREE.RepeatWrapping;
-			}
-		);
-        
+		new THREE.TextureLoader().load('/repeatingtile.jpg', (loaded) => {
+			floor = new THREE.MeshBasicMaterial({
+				map: loaded,
+				side: THREE.DoubleSide
+			});
+			floor.wrapS = THREE.RepeatWrapping;
+			floor.wrapT = THREE.RepeatWrapping;
+		});
 	});
 </script>
 
@@ -76,15 +77,23 @@
 		<Button
 			color="warning"
 			on:click={() => {
-				x_position >= 4 ? (x_position -= 3) : '';
+				x_position >= movement_amount + 1 ? (x_position -= movement_amount) : '';
 			}}
 		>
 			🠔 Back
 		</Button>
 		<Button
+			color="primary"
+			on:click={() => {
+				get_textures('favorites');
+			}}
+		>
+			More photos
+		</Button>
+		<Button
 			color="success"
 			on:click={() => {
-				x_position += 3;
+				x_position += movement_amount;
 			}}
 		>
 			Forward 🠖
@@ -99,17 +108,17 @@
 				position={[0, 0.001, 0]}
 			/> -->
 		</SC.Group>
-		<SC.Group position={[90, 4.5, -10]}>
+		<SC.Group position={[start_position, 4.5, -10]}>
 			<!-- left wall -->
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(200, 10)}
+				geometry={new THREE.PlaneGeometry(surrounding_length, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'royalblue', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
-		<SC.Group position={[90, 4.5, 10]}>
+		<SC.Group position={[start_position, 4.5, 10]}>
 			<!-- right wall -->
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(200, 10)}
+				geometry={new THREE.PlaneGeometry(surrounding_length, 10)}
 				material={new THREE.MeshStandardMaterial({ color: 'maroon', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
@@ -120,21 +129,21 @@
 				material={new THREE.MeshStandardMaterial({ color: 'purple', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
-		<SC.Group position={[90, 0, 0]} rotation={[1.57, 0, 0]}>
+		<SC.Group position={[start_position, 0, 0]} rotation={[1.57, 0, 0]}>
 			<!-- floor -->
 			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 20)}
 				material={new THREE.MeshStandardMaterial({ color: 'white', side: THREE.DoubleSide })}
 			/> -->
-			<SC.Mesh geometry={new THREE.PlaneGeometry(200, 20)} material={floor} />
+			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 20)} material={floor} />
 		</SC.Group>
-		<SC.Group position={[90, 9, 0]} rotation={[1.57, 0, 0]}>
+		<SC.Group position={[start_position, 9, 0]} rotation={[1.57, 0, 0]}>
 			<!-- roof -->
 			<!-- <SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 20)}
 				material={new THREE.MeshStandardMaterial({ color: 'black', side: THREE.DoubleSide })}
 			/> -->
-			<SC.Mesh geometry={new THREE.PlaneGeometry(200, 20)} material={roof} />
+			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 20)} material={roof} />
 		</SC.Group>
 		{#each image_textures as texture, index}
 			{#if texture.map.image.naturalHeight > 720}
@@ -176,11 +185,10 @@
 		position: relative;
 		width: 105%;
 		max-width: 90%;
-		height: var(--height, 500px);
+		height: var(--height, 600px);
 		border-radius: 0.5rem;
 		overflow: hidden;
 		margin: 0 0 1em;
-		box-shadow: inset 1px 1px 5px #0000001a;
-		background: #f4f4f4;
+		background: black;
 	}
 </style>

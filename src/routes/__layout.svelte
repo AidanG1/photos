@@ -116,15 +116,19 @@
 
 <style>
 	footer {
-		margin-top: 0;
+		margin-top: -1;
 		box-shadow: 0 100vh 0 100vh black;
 	}
 
 	:global(a) {
-		color: rgb(125, 125, 255)
+		color: rgb(125, 125, 255);
 	}
 
 	:global(a:hover) {
-		color: rgb(78, 78, 255)
+		color: rgb(78, 78, 255);
+	}
+
+	:root {
+		color-scheme: dark;
 	}
 </style>
