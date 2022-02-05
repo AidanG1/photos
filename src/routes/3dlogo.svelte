@@ -35,7 +35,7 @@
 			}
 		);
 
-		new THREE.TextureLoader().load('/snake.jpg', (loaded) => {
+		new THREE.TextureLoader().load('/panorama.jpg', (loaded) => {
 			background = loaded;
 			background.mapping = THREE.EquirectangularReflectionMapping;
 			background.encoding = THREE.sRGBEncoding;
