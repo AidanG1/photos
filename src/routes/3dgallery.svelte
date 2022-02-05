@@ -49,7 +49,7 @@
 		surrounding_length = 200 + x_position;
 		start_position = surrounding_length / 2 - 10;
 	}
-	let category_choice = 'favorites';
+	let category_choice = 'animals';
 	let movement_amount = 8;
 	let floor;
 	let roof;
@@ -151,7 +151,7 @@
 			x_position = 5 * image_textures.length;
 		}}
 	>
-		More {categoryMenuBar(category_choice.toString())} photos
+		Get {categoryMenuBar(category_choice.toString())} photos
 	</Button>
 	<Button
 		color="success"
