@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { Button, ButtonGroup } from 'sveltestrap';
 	import * as THREE from 'three';
 	import * as SC from 'svelte-cubed';
@@ -12,7 +12,7 @@
 		fetch(url).then((res) => {
 			res.json().then((photos) => {
 				for (let photo of photos) {
-					photo.src = photo.src.replace('upload/',`upload/bo_${image_width/20}px_solid_white/`)
+					photo.src = photo.src.replace('upload/', `upload/bo_${image_width / 20}px_solid_white/`);
 					new THREE.TextureLoader().load(photo.src, (img_src) => {
 						image_textures = image_textures.concat(
 							new THREE.MeshBasicMaterial({
@@ -50,7 +50,7 @@
 		start_position = surrounding_length / 2 - 10;
 	}
 	let category_choice = 'favorites';
-	let movement_amount = 5;
+	let movement_amount = 8;
 	let floor;
 	let roof;
 	let backwall;
@@ -110,14 +110,31 @@
 	SC.onFrame(() => {
 		updateFps();
 	});
+
+	function moveBack() {
+		x_position >= movement_amount + 1 ? (x_position -= movement_amount) : '';
+	}
+
+	function moveForward() {
+		x_position += movement_amount;
+	}
+
+	function handleKeydown(event) {
+		if (['ArrowUp','w','W'].includes(event.key)) {
+			moveForward()
+		} else if (['ArrowDown','s','S'].includes(event.key)) {
+			moveBack()
+		}
+	}
 </script>
 
+<svelte:window on:keydown={handleKeydown} />
 <h1>3D Photo Gallery</h1>
 <ButtonGroup>
 	<Button
 		color="warning"
 		on:click={() => {
-			x_position >= movement_amount + 1 ? (x_position -= movement_amount) : '';
+			moveBack();
 		}}
 	>
 		🠔 Back
@@ -139,7 +156,7 @@
 	<Button
 		color="success"
 		on:click={() => {
-			x_position += movement_amount;
+			moveForward();
 		}}
 	>
 		Forward 🠖
