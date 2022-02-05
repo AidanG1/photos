@@ -9,12 +9,12 @@
 		fetch(url).then((res) => {
 			res.json().then((photos) => {
 				// image_textures = [];
-				let photo_srcs = photos.map((element) => element.src);
-				for (let src of photo_srcs) {
-					new THREE.TextureLoader().load(src, (img_src) => {
+				for (let photo of photos) {
+					new THREE.TextureLoader().load(photo.src, (img_src) => {
 						image_textures = image_textures.concat(
 							new THREE.MeshBasicMaterial({
-								map: img_src
+								map: img_src,
+								side: THREE.DoubleSide
 							})
 						);
 						console.log(image_textures);
@@ -35,33 +35,50 @@
 	let x_position = 1;
 </script>
 
-<h1>Photo Gallery <ButtonGroup>
-    <Button on:click={() => {x_position -= 2.5}}>Back</Button>
-    <Button on:click={() => {x_position += 2.5}}>Forward</Button>
-  </ButtonGroup></h1>
+<h1>
+	Photo Gallery <ButtonGroup>
+		<Button color='warning'
+			on:click={() => {
+				x_position -= 3;
+			}}
+			> 🠔 Back
+		</Button>
+		<Button
+        color='success'
+			on:click={() => {
+				x_position += 3;
+			}}
+			>Forward 🠖
+		</Button>
+	</ButtonGroup>
+</h1>
 <div class="demo">
 	<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
 		<SC.Group position={[0, -0 / 2, 0]}>
-			<SC.Primitive
+			<!-- <SC.Primitive
 				object={new THREE.GridHelper(20, 20, 0x444444, 0x555555)}
 				position={[0, 0.001, 0]}
-			/>
+			/> -->
 		</SC.Group>
-		<SC.Group position={[0, 4.5, -10]}>
+		<SC.Group position={[90, 4.5, -10]}>
 			<SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 10)}
-				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke' })}
+				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke', side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
-		<SC.Group position={[0, 4.5, 10]}>
+		<SC.Group position={[90, 4.5, 10]}>
 			<SC.Mesh
 				geometry={new THREE.PlaneGeometry(200, 10)}
-				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke' })}
+				material={new THREE.MeshStandardMaterial({ color: 'whitesmoke',
+                side: THREE.DoubleSide })}
 			/>
 		</SC.Group>
 		{#each image_textures as texture, index}
 			<SC.Mesh
-				geometry={new THREE.PlaneGeometry(7, 7)}
+				geometry={new THREE.PlaneGeometry(
+					(8 * texture.map.image.naturalWidth) / 720,
+					(8 * texture.map.image.naturalHeight) / 720
+				)}
 				material={texture}
 				position={[Math.round(index / 2) * 10, 4.5, index_z(index)]}
 			/>
@@ -69,11 +86,7 @@
 		<!-- <SC.Mesh geometry={new THREE.BoxGeometry()} /> -->
 		<SC.PerspectiveCamera position={[x_position, 4, 0]} />
 		<SC.AmbientLight intensity={0.6} />
-		<SC.OrbitControls
-			target={[x_position, 5, 0]}
-			enablePan={false}
-			maxPolarAngle={Math.PI * 0.48}
-		/>
+		<SC.OrbitControls target={[x_position, 5, 0]} enablePan={false} maxPolarAngle={Math.PI * 0.5} />
 		​</SC.Canvas
 	>
 </div>
