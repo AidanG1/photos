@@ -134,7 +134,6 @@ const photos = [ // lower ranks display earlier
     { rank: 5, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540732/Aidan%27s%20Photos/IMG_5634_cix5gg.jpg", categories: ['motion-blur',] },
     { rank: 4, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540732/Aidan%27s%20Photos/IMG_6440_kkbn2b.jpg", categories: ['people',] },
     { rank: 5, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540732/Aidan%27s%20Photos/IMG_6019_ehvmgo.jpg", categories: ['people',] },
-    { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540731/Aidan%27s%20Photos/IMG_5566_nwjhuo.jpg", categories: ['motion-blur',] },
     { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540729/Aidan%27s%20Photos/IMG_8027_sgmv5x.jpg", categories: ['motion-blur', 'urban'] },
     { rank: 4, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540731/Aidan%27s%20Photos/IMG_5006_exlz36.jpg", categories: ['people',] },
     { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540730/Aidan%27s%20Photos/IMG_8420_lxvr6i.jpg", categories: ['people', 'animals', 'urban'] },
@@ -162,8 +161,6 @@ const photos = [ // lower ranks display earlier
     { rank: 6, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540727/Aidan%27s%20Photos/IMG_7739_xvfqnw.jpg", categories: ['people',] },
     { rank: 7, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540727/Aidan%27s%20Photos/IMG_3428_gcpp6s.jpg", categories: ['motion-blur', 'people'] },
     { rank: 8, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1653540727/Aidan%27s%20Photos/IMG_3157_uwq9k2.jpg", categories: ['motion-blur',] },
-    { rank: 8, src: "", categories: ['',] },
-    { rank: 8, src: "", categories: ['',] },
     // { rank: 8, src: "", categories: ['',] },
 ]
 
