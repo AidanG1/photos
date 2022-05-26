@@ -178,6 +178,7 @@
 <main class="demo">
 	<span id="fps">FPS: {fps}</span>
 	<SC.Canvas antialias background={new THREE.Color('lightskyblue')}>
+		<SC.Mesh geometry={new THREE.PlaneGeometry(20, 10)} material={backwall} />
 		<SC.Group position={[start_position, 4.5, -10]}>
 			<!-- left wall -->
 			<SC.Mesh geometry={new THREE.PlaneGeometry(surrounding_length, 10)} material={walls} />
@@ -245,7 +246,7 @@
 		<SC.PerspectiveCamera position={[x_position, 4, 0]} />
 		<SC.AmbientLight intensity={0.6} />
 		<SC.OrbitControls
-			target={[x_position-0.1, 4, 0]}
+			target={[x_position-1, 4, 0]}
 			enablePan={false}
 			enableZoom={false}
 		/>
