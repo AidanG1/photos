@@ -2,7 +2,7 @@
   "name": "photos",
   "version": "1.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "vite dev",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
@@ -14,17 +14,18 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/adapter-cloudflare": "^1.0.0-next.8",
-    "@sveltejs/kit": "^1.0.0-next.239",
-    "prettier": "^2.5.1",
-    "prettier-plugin-svelte": "^2.6.0",
-    "svelte": "^3.46.4"
+    "@sveltejs/adapter-cloudflare": "^1.0.0-next.31",
+    "@sveltejs/kit": "^1.0.0-next.405",
+    "prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.7.0",
+    "svelte": "^3.49.0",
+    "vite": "^3.0.4"
   },
   "type": "module",
   "dependencies": {
-    "sharp": "^0.30.0",
+    "sharp": "^0.30.7",
     "svelte-cubed": "^0.2.1",
-    "sveltestrap": "^5.8.3",
-    "three": "^0.137.5"
+    "sveltestrap": "^5.9.0",
+    "three": "^0.143.0"
   }
 }

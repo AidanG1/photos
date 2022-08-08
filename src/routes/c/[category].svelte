@@ -40,7 +40,7 @@
 		Carousel,
 		CarouselControl,
 		CarouselItem
-	} from 'sveltestrap';
+	} from 'sveltestrap/src';
 	let pathname = $page.url.pathname;
 	pathname = pathname.substring(3, pathname.length);
 	pathname = categoryMenuBar(pathname);

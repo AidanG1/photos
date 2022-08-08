@@ -18,7 +18,7 @@
 		Nav,
 		NavItem,
 		NavLink
-	} from 'sveltestrap';
+	} from 'sveltestrap/src';
 	import { categoryMenuBar } from '$lib/utils';
 	import categories from '$lib/categories';
 	import PageTransition from './PageTransition.svelte';
