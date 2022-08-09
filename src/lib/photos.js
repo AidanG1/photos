@@ -193,7 +193,7 @@ const photos = [ // lower ranks display earlier
     { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/GOPR5526_vqpzf7.jpg", categories: ['belize', 'animals'] },
     { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/GOPR5317_djzbvd.jpg", categories: ['belize', 'animals'] },
     { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/GOPR5457_fkzvl0.jpg", categories: ['belize', 'animals'] },
-    { rank: 1, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/IMG_8881_omuxjl.jpg", categories: ['favorites', 'belize', 'animals'] },
+    { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/IMG_8881_omuxjl.jpg", categories: ['belize', 'animals'] },
     { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/IMG_8693_rjlh0v.jpg", categories: ['belize', 'animals'] },
     { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988911/Aidan%27s%20Photos/Belize/IMG_8687_vfrq6p.jpg", categories: ['belize', 'animals'] },
     { rank: 1, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1659988910/Aidan%27s%20Photos/Belize/IMG_8599_u2q2x8.jpg", categories: ['favorites', 'belize', 'animals'] },
