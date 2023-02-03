@@ -220,7 +220,7 @@ const photos = [ // lower ranks display earlier
     { rank: 6, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462890/Aidan%27s%20Photos/Wyoming/IMG_2833_tpfoc3.jpg", categories: ['wyoming', 'urban'] },
     { rank: 7, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462890/Aidan%27s%20Photos/Wyoming/IMG_3248_cqsogv.jpg", categories: ['wyoming', 'nature'] },
     { rank: 7, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462889/Aidan%27s%20Photos/Wyoming/IMG_2787_pqdrmx.jpg", categories: ['wyoming', 'nature', 'urban', 'animals'] },
-    { rank: 4, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462888/Aidan%27s%20Photos/Wyoming/IMG_3735_hgexwi.jpg", categories: ['wyoming', 'nanture'] },
+    { rank: 4, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462888/Aidan%27s%20Photos/Wyoming/IMG_3735_hgexwi.jpg", categories: ['wyoming', 'nature'] },
     { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462881/Aidan%27s%20Photos/Wyoming/IMG_4557_tgwuci.jpg", categories: ['wyoming', ] },
     { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462878/Aidan%27s%20Photos/Wyoming/IMG_4063_mqnnv2.jpg", categories: ['wyoming', 'animals'] },
     { rank: 7, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462878/Aidan%27s%20Photos/Wyoming/IMG_4484_pzrqfw.jpg", categories: ['wyoming', 'motion-blur', 'people'] },
@@ -247,7 +247,7 @@ const photos = [ // lower ranks display earlier
     { rank: 3, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462828/Aidan%27s%20Photos/Wyoming/IMG_3319_luaoni.jpg", categories: ['wyoming', 'nature'] },
     { rank: 5, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462827/Aidan%27s%20Photos/Wyoming/IMG_3101_bqldcx.jpg", categories: ['wyoming', 'animals', 'close-up'] },
     { rank: 4, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462826/Aidan%27s%20Photos/Wyoming/IMG_3292_lzzhdw.jpg", categories: ['wyoming', 'urban'] },
-    { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462823/Aidan%27s%20Photos/Wyoming/IMG_3087_vmodex.jpg", categories: ['wyoming', 'animals'] },
+    { rank: 2, src: "https://res.cloudinary.com/dnmd9zoai/image/upload/v1675462823/Aidan%27s%20Photos/Wyoming/IMG_3087_vmodex.jpg", categories: ['wyoming', 'animals', 'favorites'] },
     // { rank: 8, src: "", categories: ['', ] },
 ]
 
