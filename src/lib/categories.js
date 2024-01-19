@@ -1,6 +1,5 @@
 import photos from '$lib/photos'
 
-
 let categories = new Set()
 
 for (let photo of photos) {
